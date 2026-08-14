@@ -1,0 +1,8 @@
+@host = http://localhost:5248
+
+### Health Check
+
+GET {{host}}/api/health
+Accept: application/json
+
+###
