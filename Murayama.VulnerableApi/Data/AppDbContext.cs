@@ -11,4 +11,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Order> Orders => Set<Order>();
 
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    
+    public DbSet<CouponRedemption> CouponRedemptions => Set<CouponRedemption>();
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<CouponRedemption>()
+            .HasIndex(r => new { r.UserId, r.CouponCode })
+            .IsUnique();
+    }
 }

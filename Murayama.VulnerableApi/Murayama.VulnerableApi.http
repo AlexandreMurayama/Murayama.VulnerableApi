@@ -340,8 +340,77 @@ Authorization: Bearer {{adminToken}}
 
 ###
 
+############################################################
+# OWASP API6 - UNRESTRICTED ACCESS TO SENSITIVE BUSINESS FLOWS
+############################################################
 
+# ----------------------------------------------------------
+# Vulnerable
+# ----------------------------------------------------------
 
+### API6 - Vulnerable - Redeem coupon - Attempt 1
+
+POST {{host}}/api/vulnerable/promotions/redeem
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "couponCode": "WELCOME10"
+}
+
+###
+
+### API6 - Vulnerable - Redeem coupon - Attempt 2
+
+POST {{host}}/api/vulnerable/promotions/redeem
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "couponCode": "WELCOME10"
+}
+
+###
+
+### API6 - Vulnerable - Redeem coupon - Attempt 3
+
+POST {{host}}/api/vulnerable/promotions/redeem
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "couponCode": "WELCOME10"
+}
+
+###
+
+# ----------------------------------------------------------
+# Secure
+# ----------------------------------------------------------
+
+### API6 - Secure - Redeem coupon - Attempt 1
+
+POST {{host}}/api/secure/promotions/redeem
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "couponCode": "WELCOME10"
+}
+
+###
+
+### API6 - Secure - Redeem coupon - Attempt 2
+
+POST {{host}}/api/secure/promotions/redeem
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "couponCode": "WELCOME10"
+}
+
+###
 
 
 

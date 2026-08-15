@@ -15,4 +15,7 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Order> Orders { get; set; } = new List<Order>();
+    
+    public ICollection<CouponRedemption> CouponRedemptions { get; set; }
+        = new List<CouponRedemption>();
 }
