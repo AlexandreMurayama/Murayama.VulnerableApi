@@ -412,9 +412,41 @@ Authorization: Bearer {{token}}
 
 ###
 
+############################################################
+# OWASP API6 - SERVER-SIDE REQUEST FORGERY (SSRF)
+############################################################
 
+# ---------------------------------------------------------
+# Vulnerable
+# ---------------------------------------------------------
 
+### API7 - Vulnerable - Fetch internal resource
 
+POST {{host}}/api/vulnerable/fetch
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "url": "http://localhost:5248/api/internal/metadata"
+}
+
+###
+
+# ---------------------------------------------------------
+# Secure
+# ---------------------------------------------------------
+
+### API7 - Secure - Internal resource blocked
+
+POST {{host}}/api/secure/fetch
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "url": "http://localhost:5248/api/internal/metadata"
+}
+
+###
 
 
 
