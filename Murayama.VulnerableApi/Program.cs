@@ -6,6 +6,8 @@ using Murayama.VulnerableApi.Settings;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 namespace Murayama.VulnerableApi;
 
@@ -55,6 +57,19 @@ public class Program
 
         builder.Services.AddAuthorization();
         
+        builder.Services.AddRateLimiter(options =>
+        {
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+            options.AddFixedWindowLimiter("auth-login", limiterOptions =>
+            {
+                limiterOptions.PermitLimit = 3;
+                limiterOptions.Window = TimeSpan.FromMinutes(1);
+                limiterOptions.QueueLimit = 0;
+                limiterOptions.AutoReplenishment = true;
+            });
+        });
+        
         var app = builder.Build();
         
         using (var scope = app.Services.CreateScope())
@@ -72,6 +87,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        
+        app.UseRateLimiter();
 
         app.UseAuthentication();
         

@@ -23,11 +23,7 @@ public class VulnerableOrdersController : ControllerBase
         var order = await _dbContext.Orders
             .Include(o => o.Items)
             .FirstOrDefaultAsync(o => o.Id == id);
-        // A vulnerabilidade está especificamente aqui.
-        // A API pergunta apenas: Existe um pedido com esse ID?
-        // Ela não pergunta: Esse pedido pertence ao usuário autenticado?
-        // E observe que temos [Authorize]. Portanto, esse endpoint não está "sem segurança": ele exige autenticação. O problema é que autenticação não implica autorização sobre cada objeto.
-
+        
         if (order is null)
             return NotFound();
 

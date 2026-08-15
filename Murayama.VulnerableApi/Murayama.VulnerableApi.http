@@ -69,4 +69,100 @@ Authorization: Bearer {{token}}
 
 ###
 
-## --------------------------------------------------------------------- ##
+## --------------- OWASP API2 - Broken Authentication --------------- ##
+
+### API2 - Vulnerable Authentication - Attempt 1
+
+POST {{host}}/api/vulnerable/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-1"
+}
+
+###
+
+### API2 - Vulnerable Authentication - Attempt 2
+
+POST {{host}}/api/vulnerable/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-2"
+}
+
+###
+
+### API2 - Vulnerable Authentication - Attempt 3
+
+POST {{host}}/api/vulnerable/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-3"
+}
+
+###
+
+### API2 - Vulnerable Authentication - Attempt 4
+
+POST {{host}}/api/vulnerable/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-4"
+}
+
+###
+
+### API2 - Secure Authentication - Attempt 1
+
+POST {{host}}/api/secure/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-1"
+}
+
+###
+
+### API2 - Secure Authentication - Attempt 2
+
+POST {{host}}/api/secure/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-2"
+}
+
+###
+
+### API2 - Secure Authentication - Attempt 3
+
+POST {{host}}/api/secure/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-3"
+}
+
+###
+
+### API2 - Secure Authentication - Attempt 4
+
+POST {{host}}/api/secure/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "wrong-password-4"
+}
+
+###
