@@ -4,6 +4,7 @@
 
 @host = http://localhost:5248
 @token = <COLE-AQUI-O-TOKEN-DA-ALICE>
+@adminToken = <COLE-AQUI-O-TOKEN-DO-ADMIN>
 
 
 ############################################################
@@ -25,6 +26,18 @@ Content-Type: application/json
 {
   "email": "alice@murayama.local",
   "password": "Alice123!"
+}
+
+###
+
+### Login - Admin
+
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@murayama.local",
+  "password": "Admin123!"
 }
 
 ###
@@ -198,7 +211,6 @@ Content-Type: application/json
 
 ###
 
-
 ############################################################
 # OWASP API3 - BROKEN OBJECT PROPERTY LEVEL AUTHORIZATION
 ############################################################
@@ -291,3 +303,50 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 ###
+
+############################################################
+# OWASP API5 - BROKEN FUNCTION LEVEL AUTHORIZATION
+############################################################
+
+# ----------------------------------------------------------
+# Vulnerable
+# ----------------------------------------------------------
+
+### API5 - Vulnerable - Alice accesses admin function
+
+GET {{host}}/api/vulnerable/admin/users
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# ----------------------------------------------------------
+# Secure
+# ----------------------------------------------------------
+
+### API5 - Secure - Alice denied admin function
+
+GET {{host}}/api/secure/admin/users
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API5 - Secure - Admin accesses admin function
+
+GET {{host}}/api/secure/admin/users
+Accept: application/json
+Authorization: Bearer {{adminToken}}
+
+###
+
+
+
+
+
+
+
+
+
+
+
