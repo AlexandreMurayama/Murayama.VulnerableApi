@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Murayama.VulnerableApi.Data;
+
 namespace Murayama.VulnerableApi;
 
 public class Program
@@ -8,6 +11,9 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
+        builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
 
         var app = builder.Build();
         
