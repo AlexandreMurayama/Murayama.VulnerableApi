@@ -510,3 +510,39 @@ Accept: application/json
 Authorization: Bearer {{adminToken}}
 
 ###
+
+############################################################
+# OWASP API10 - UNSAFE CONSUMPTION OF APIS
+############################################################
+
+# ---------------------------------------------------------
+# Vulnerable
+# ---------------------------------------------------------
+
+### API10 - Vulnerable - Trust third-party response
+
+GET {{host}}/api/vulnerable/suppliers/ACME/risk
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# ---------------------------------------------------------
+# Secure
+# ---------------------------------------------------------
+
+### API10 - Secure - Validate third-party response
+
+GET {{host}}/api/secure/suppliers/ACME/risk
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API10 - Secure - Accept valid third-party response
+
+GET {{host}}/api/secure/suppliers/TRUSTED/risk
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
