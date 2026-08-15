@@ -475,3 +475,38 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 ###
+
+############################################################
+# OWASP API9 - IMPROPER INVENTORY MANAGEMENT
+############################################################
+
+# ---------------------------------------------------------
+# Vulnerable
+# ---------------------------------------------------------
+
+### API9 - Legacy v1 - Deprecated endpoint still accessible
+
+GET {{host}}/api/v1/users
+Accept: application/json
+
+###
+
+# ---------------------------------------------------------
+# Secure
+# ---------------------------------------------------------
+
+### API9 - Current v2 - Alice denied
+
+GET {{host}}/api/v2/users
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API9 - Current v2 - Admin allowed
+
+GET {{host}}/api/v2/users
+Accept: application/json
+Authorization: Bearer {{adminToken}}
+
+###
