@@ -6,12 +6,13 @@
       context: .
       dockerfile: Murayama.VulnerableApi/Dockerfile
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     depends_on:
       - postgres
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+      Jwt__Key: ${JWT_KEY}
 
   postgres:
     image: postgres:17
@@ -22,7 +23,7 @@
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - murayama_postgres_data:/var/lib/postgresql/data
 
