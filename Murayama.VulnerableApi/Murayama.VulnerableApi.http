@@ -448,6 +448,30 @@ Authorization: Bearer {{token}}
 
 ###
 
+############################################################
+# OWASP API8 - SECURITY MISCONFIGURATION
+############################################################
 
+# ---------------------------------------------------------
+# Vulnerable
+# ---------------------------------------------------------
 
+### API8 - Vulnerable - Internal error details exposed
 
+GET {{host}}/api/vulnerable/diagnostics/error
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# ---------------------------------------------------------
+# Secure
+# ---------------------------------------------------------
+
+### API8 - Secure - Internal error details hidden
+
+GET {{host}}/api/secure/diagnostics/error
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
