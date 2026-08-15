@@ -1,5 +1,14 @@
+############################################################
+# CONFIGURATION
+############################################################
+
 @host = http://localhost:5248
 @token = <COLE-AQUI-O-TOKEN-DA-ALICE>
+
+
+############################################################
+# GENERAL
+############################################################
 
 ### Health Check
 
@@ -35,7 +44,14 @@ Authorization: Bearer {{token}}
 
 ###
 
-## --------------- OWASP API1 - Broken Object Level Authorization --------------- ##
+
+############################################################
+# OWASP API1 - BROKEN OBJECT LEVEL AUTHORIZATION (BOLA)
+############################################################
+
+# ----------------------------------------------------------
+# Vulnerable
+# ----------------------------------------------------------
 
 ### BOLA - acesso legítimo da Alice ao próprio pedido
 
@@ -53,6 +69,10 @@ Authorization: Bearer {{token}}
 
 ###
 
+# ----------------------------------------------------------
+# Secure
+# ----------------------------------------------------------
+
 ### BOLA corrigido - Alice acessa o próprio pedido
 
 GET {{host}}/api/secure/orders/1
@@ -69,7 +89,14 @@ Authorization: Bearer {{token}}
 
 ###
 
-## --------------- OWASP API2 - Broken Authentication --------------- ##
+
+############################################################
+# OWASP API2 - BROKEN AUTHENTICATION
+############################################################
+
+# ----------------------------------------------------------
+# Vulnerable
+# ----------------------------------------------------------
 
 ### API2 - Vulnerable Authentication - Attempt 1
 
@@ -119,6 +146,10 @@ Content-Type: application/json
 
 ###
 
+# ----------------------------------------------------------
+# Secure
+# ----------------------------------------------------------
+
 ### API2 - Secure Authentication - Attempt 1
 
 POST {{host}}/api/secure/auth/login
@@ -163,6 +194,60 @@ Content-Type: application/json
 {
   "email": "alice@murayama.local",
   "password": "wrong-password-4"
+}
+
+###
+
+
+############################################################
+# OWASP API3 - BROKEN OBJECT PROPERTY LEVEL AUTHORIZATION
+############################################################
+
+# ----------------------------------------------------------
+# Vulnerable - Excessive Data Exposure
+# ----------------------------------------------------------
+
+### API3 - Excessive Data Exposure - Vulnerable
+
+GET {{host}}/api/vulnerable/users/me
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API3 - Excessive Data Exposure - Secure
+
+GET {{host}}/api/secure/users/me
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API3 - Mass Assignment - Vulnerable
+
+PUT {{host}}/api/vulnerable/users/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Alice",
+  "email": "alice@murayama.local",
+  "role": "Admin",
+  "passwordHash": "ignored-by-this-endpoint"
+}
+
+###
+
+### API3 - Mass Assignment - Secure
+
+PUT {{host}}/api/secure/users/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Alice Secure",
+  "email": "alice@murayama.local",
+  "role": "Admin"
 }
 
 ###
