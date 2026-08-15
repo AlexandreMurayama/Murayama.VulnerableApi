@@ -34,3 +34,39 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 ###
+
+## --------------- OWASP API1 - Broken Object Level Authorization --------------- ##
+
+### BOLA - acesso legítimo da Alice ao próprio pedido
+
+GET {{host}}/api/vulnerable/orders/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### BOLA - Alice tentando acessar pedido do Bob
+
+GET {{host}}/api/vulnerable/orders/3
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### BOLA corrigido - Alice acessa o próprio pedido
+
+GET {{host}}/api/secure/orders/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### BOLA corrigido - Alice tenta acessar pedido do Bob
+
+GET {{host}}/api/secure/orders/3
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+## --------------------------------------------------------------------- ##
