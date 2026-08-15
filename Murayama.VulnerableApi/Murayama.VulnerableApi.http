@@ -1,8 +1,36 @@
 @host = http://localhost:5248
+@token = <COLE-AQUI-O-TOKEN-DA-ALICE>
 
 ### Health Check
 
 GET {{host}}/api/health
 Accept: application/json
+
+###
+
+### Login - Alice
+
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@murayama.local",
+  "password": "Alice123!"
+}
+
+###
+
+### Profile - sem JWT
+
+GET {{host}}/api/profile
+Accept: application/json
+
+###
+
+### Profile - Alice autenticada
+
+GET {{host}}/api/profile
+Accept: application/json
+Authorization: Bearer {{token}}
 
 ###

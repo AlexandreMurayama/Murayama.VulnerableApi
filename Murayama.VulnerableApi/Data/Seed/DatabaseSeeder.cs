@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Murayama.VulnerableApi.Models;
+using Murayama.VulnerableApi.Services;
 
 namespace Murayama.VulnerableApi.Data.Seed;
 
 public static class DatabaseSeeder
 {
-    public static async Task SeedAsync(AppDbContext dbContext)
+    public static async Task SeedAsync(AppDbContext dbContext, PasswordService passwordService)
     {
         if (await dbContext.Users.AnyAsync())
             return;
@@ -14,7 +15,7 @@ public static class DatabaseSeeder
         {
             Name = "Alice",
             Email = "alice@murayama.local",
-            PasswordHash = "TEMP_HASH",
+            PasswordHash = string.Empty,
             Role = "User"
         };
 
@@ -22,7 +23,7 @@ public static class DatabaseSeeder
         {
             Name = "Bob",
             Email = "bob@murayama.local",
-            PasswordHash = "TEMP_HASH",
+            PasswordHash = string.Empty,
             Role = "User"
         };
 
@@ -30,10 +31,14 @@ public static class DatabaseSeeder
         {
             Name = "Admin",
             Email = "admin@murayama.local",
-            PasswordHash = "TEMP_HASH",
+            PasswordHash = string.Empty,
             Role = "Admin"
         };
 
+        alice.PasswordHash = passwordService.HashPassword(alice, "Alice123!");
+        bob.PasswordHash = passwordService.HashPassword(bob, "Bob123!");
+        admin.PasswordHash = passwordService.HashPassword(admin, "Admin123!");
+        
         dbContext.Users.AddRange(alice, bob, admin);
         await dbContext.SaveChangesAsync();
 
