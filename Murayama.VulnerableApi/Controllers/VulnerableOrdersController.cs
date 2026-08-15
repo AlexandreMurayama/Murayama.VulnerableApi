@@ -43,4 +43,46 @@ public class VulnerableOrdersController : ControllerBase
             })
         });
     }
+    
+    [HttpGet("search")]
+    public async Task<IActionResult> Search(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 20)
+    {
+        if (page < 1)
+            page = 1;
+
+        if (pageSize < 1)
+            pageSize = 20;
+
+        var orders = await _dbContext.Orders
+            .AsNoTracking()
+            .OrderBy(o => o.Id)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(o => new
+            {
+                o.Id,
+                o.UserId,
+                o.Total,
+                o.Status,
+                o.CreatedAt,
+                Items = o.Items.Select(item => new
+                {
+                    item.Id,
+                    item.ProductName,
+                    item.UnitPrice,
+                    item.Quantity
+                })
+            })
+            .ToListAsync();
+
+        return Ok(new
+        {
+            page,
+            pageSize,
+            count = orders.Count,
+            data = orders
+        });
+    }
 }

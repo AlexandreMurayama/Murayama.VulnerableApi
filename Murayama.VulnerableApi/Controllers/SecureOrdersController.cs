@@ -54,4 +54,53 @@ public class SecureOrdersController : ControllerBase
             })
         });
     }
+    
+    [HttpGet("search")]
+    public async Task<IActionResult> Search(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 20)
+    {
+        const int defaultPageSize = 20;
+        const int maxPageSize = 50;
+
+        if (page < 1)
+            page = 1;
+
+        if (pageSize < 1)
+            pageSize = defaultPageSize;
+
+        if (pageSize > maxPageSize)
+            pageSize = maxPageSize;
+
+        var orders = await _dbContext.Orders
+            .AsNoTracking()
+            .OrderBy(o => o.Id)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(o => new
+            {
+                o.Id,
+                o.UserId,
+                o.Total,
+                o.Status,
+                o.CreatedAt,
+                Items = o.Items.Select(item => new
+                {
+                    item.Id,
+                    item.ProductName,
+                    item.UnitPrice,
+                    item.Quantity
+                })
+            })
+            .ToListAsync();
+
+        return Ok(new
+        {
+            page,
+            pageSize,
+            maxPageSize,
+            count = orders.Count,
+            data = orders
+        });
+    }
 }

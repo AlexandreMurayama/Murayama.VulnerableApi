@@ -251,3 +251,43 @@ Authorization: Bearer {{token}}
 }
 
 ###
+
+############################################################
+# OWASP API4 - UNRESTRICTED RESOURCE CONSUMPTION
+############################################################
+
+# ---------------------------------------------------------
+# Vulnerable - Unrestricted Pagination
+# ---------------------------------------------------------
+
+### API4 - Vulnerable - Normal Page Size
+
+GET {{host}}/api/vulnerable/orders/search?page=1&pageSize=20
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API4 - Vulnerable - Excessive Page Size
+
+GET {{host}}/api/vulnerable/orders/search?page=1&pageSize=1000000
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API4 - Secure - Normal Page Size
+
+GET {{host}}/api/secure/orders/search?page=1&pageSize=20
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### API4 - Secure - Excessive Page Size
+
+GET {{host}}/api/secure/orders/search?page=1&pageSize=1000000
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
