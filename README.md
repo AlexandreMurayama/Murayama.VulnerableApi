@@ -1,55 +1,100 @@
 # Murayama Vulnerable API
 
-An intentionally vulnerable ASP.NET Core Web API designed for hands-on study of the **OWASP API Security Top 10 — 2023**.
+![.NET](https://img.shields.io/badge/.NET-ASP.NET_Core-512BD4?style=flat-square&logo=dotnet&logoColor=white)
+![C%23](https://img.shields.io/badge/C%23-Language-512BD4?style=flat-square&logo=csharp&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat-square&logo=docker&logoColor=white)
+![OWASP](https://img.shields.io/badge/OWASP-API_Security_Top_10-000000?style=flat-square&logo=owasp&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
-The project contains vulnerable and secure implementations of common API security flaws, allowing each vulnerability to be reproduced, analyzed and compared with its corresponding mitigation.
+An intentionally vulnerable ASP.NET Core Web API designed for hands-on
+study of the **OWASP API Security Top 10 --- 2023**.
+
+The project contains vulnerable and secure implementations of common API
+security flaws, allowing each vulnerability to be reproduced, analyzed
+and compared with its corresponding mitigation.
 
 > ⚠️ **Educational project only.**
 >
-> This application intentionally contains security vulnerabilities.
-> Do not expose it to the Internet or deploy it in a production environment.
+> This application intentionally contains security vulnerabilities. Do
+> not expose it to the Internet or deploy it in a production
+> environment.
 
----
+------------------------------------------------------------------------
 
 ## 🎯 Project Goals
 
-Murayama Vulnerable API was created as a practical Application Security laboratory with the following goals:
+Murayama Vulnerable API was created as a practical Application Security
+laboratory with the following goals:
 
-- Study the OWASP API Security Top 10 through hands-on examples.
-- Understand how API vulnerabilities appear in application code.
-- Reproduce vulnerable behavior through HTTP requests.
-- Implement secure alternatives to each vulnerable endpoint.
-- Compare vulnerable and secure implementations.
-- Document exploitation evidence and mitigations.
-- Practice secure development using ASP.NET Core.
-- Build a practical API Security / AppSec portfolio project.
+-   Study the OWASP API Security Top 10 through hands-on examples.
+-   Understand how API vulnerabilities appear in application code.
+-   Reproduce vulnerable behavior through HTTP requests.
+-   Implement secure alternatives to each vulnerable endpoint.
+-   Compare vulnerable and secure implementations.
+-   Document exploitation evidence and mitigations.
+-   Practice secure development using ASP.NET Core.
+-   Build a practical API Security / AppSec portfolio project.
 
----
+------------------------------------------------------------------------
 
-## 🛡️ OWASP API Security Top 10 — 2023
+## 🛡️ OWASP API Security Top 10 --- 2023
 
-This project implements laboratories covering all ten categories of the OWASP API Security Top 10 2023.
+This project implements laboratories covering all ten categories of the
+OWASP API Security Top 10 2023.
 
-| # | Vulnerability | Laboratory | Documentation |
-|---|---|---|---|
-| API1 | Broken Object Level Authorization | Vulnerable vs ownership-aware order access | [View](docs/vulnerabilities/API1-BOLA.md) |
-| API2 | Broken Authentication | Weak vs protected authentication flow | [View](docs/vulnerabilities/API2-Broken-Authentication.md) |
-| API3 | Broken Object Property Level Authorization | Mass assignment / property authorization | [View](docs/vulnerabilities/API3-BOPLA.md) |
-| API4 | Unrestricted Resource Consumption | Unbounded vs constrained resource requests | [View](docs/vulnerabilities/API4-Unrestricted-Resource-Consumption.md) |
-| API5 | Broken Function Level Authorization | User access to administrative functionality | [View](docs/vulnerabilities/API5-Broken-Function-Level-Authorization.md) |
-| API6 | Unrestricted Access to Sensitive Business Flows | Repeated coupon redemption | [View](docs/vulnerabilities/API6-Unrestricted-Access-to-Sensitive-Business-Flows.md) |
-| API7 | Server-Side Request Forgery | User-controlled server-side requests | [View](docs/vulnerabilities/API7-Server-Side-Request-Forgery.md) |
-| API8 | Security Misconfiguration | Internal error information disclosure | [View](docs/vulnerabilities/API8-Security-Misconfiguration.md) |
-| API9 | Improper Inventory Management | Forgotten legacy API version | [View](docs/vulnerabilities/API9-Improper-Inventory-Management.md) |
-| API10 | Unsafe Consumption of APIs | Unvalidated third-party API responses | [View](docs/vulnerabilities/API10-Unsafe-Consumption-of-APIs.md) |
+  ---------------------------------------------------------------------------------------------------------------------------------------------
+  \#                Vulnerability      Laboratory        Documentation
+  ----------------- ------------------ ----------------- --------------------------------------------------------------------------------------
+  API1              Broken Object      Vulnerable vs     [View](docs/vulnerabilities/API1-BOLA.md)
+                    Level              ownership-aware   
+                    Authorization      order access      
 
----
+  API2              Broken             Weak vs protected [View](docs/vulnerabilities/API2-Broken-Authentication.md)
+                    Authentication     authentication    
+                                       flow              
+
+  API3              Broken Object      Mass assignment / [View](docs/vulnerabilities/API3-BOPLA.md)
+                    Property Level     property          
+                    Authorization      authorization     
+
+  API4              Unrestricted       Unbounded vs      [View](docs/vulnerabilities/API4-Unrestricted-Resource-Consumption.md)
+                    Resource           constrained       
+                    Consumption        resource requests 
+
+  API5              Broken Function    User access to    [View](docs/vulnerabilities/API5-Broken-Function-Level-Authorization.md)
+                    Level              administrative    
+                    Authorization      functionality     
+
+  API6              Unrestricted       Repeated coupon   [View](docs/vulnerabilities/API6-Unrestricted-Access-to-Sensitive-Business-Flows.md)
+                    Access to          redemption        
+                    Sensitive Business                   
+                    Flows                                
+
+  API7              Server-Side        User-controlled   [View](docs/vulnerabilities/API7-Server-Side-Request-Forgery.md)
+                    Request Forgery    server-side       
+                                       requests          
+
+  API8              Security           Internal error    [View](docs/vulnerabilities/API8-Security-Misconfiguration.md)
+                    Misconfiguration   information       
+                                       disclosure        
+
+  API9              Improper Inventory Forgotten legacy  [View](docs/vulnerabilities/API9-Improper-Inventory-Management.md)
+                    Management         API version       
+
+  API10             Unsafe Consumption Unvalidated       [View](docs/vulnerabilities/API10-Unsafe-Consumption-of-APIs.md)
+                    of APIs            third-party API   
+                                       responses         
+  ---------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 
 ## 🏗️ Architecture
 
-The laboratory uses a deliberately simple architecture so that the security behavior remains easy to understand.
+The laboratory uses a deliberately simple architecture so that the
+security behavior remains easy to understand.
 
-```text
+``` text
                     HTTP Client
                         │
                         ▼
@@ -69,9 +114,10 @@ The laboratory uses a deliberately simple architecture so that the security beha
                     PostgreSQL
 ```
 
-Some laboratories also contain simulated internal or third-party services:
+Some laboratories also contain simulated internal or third-party
+services:
 
-```text
+``` text
 API7 SSRF
 API ─────► simulated internal resource
 
@@ -81,31 +127,51 @@ API ─────► simulated third-party API
 
 All simulations remain inside the local laboratory environment.
 
----
+------------------------------------------------------------------------
 
 ## 🧰 Technology Stack
 
-- **C#**
-- **ASP.NET Core Web API**
-- **.NET**
-- **Entity Framework Core**
-- **PostgreSQL**
-- **Docker**
-- **JWT Bearer Authentication**
-- **Role-Based Authorization**
-- **HttpClient / IHttpClientFactory**
-- **EF Core Migrations**
-- **HTTP request files (`.http`)**
+-   **C#**
+-   **ASP.NET Core Web API**
+-   **.NET**
+-   **Entity Framework Core**
+-   **PostgreSQL**
+-   **Docker**
+-   **JWT Bearer Authentication**
+-   **Role-Based Authorization**
+-   **HttpClient / IHttpClientFactory**
+-   **EF Core Migrations**
+-   **HTTP request files (`.http`)**
 
----
+------------------------------------------------------------------------
 
-## 🔐 Authentication
+## 👥 Lab Credentials
 
-The API uses JWT Bearer authentication.
+The application automatically seeds three fictitious users for
+laboratory purposes.
 
-Example:
+  User    Email                    Password      Role
+  ------- ------------------------ ------------- -------
+  Alice   `alice@murayama.local`   `Alice123!`   User
+  Bob     `bob@murayama.local`     `Bob123!`     User
+  Admin   `admin@murayama.local`   `Admin123!`   Admin
 
-```http
+> ⚠️ These credentials are intentionally public and exist exclusively
+> for the local security laboratory. They must never be reused for real
+> accounts or production environments.
+
+The different accounts are used to demonstrate authentication and
+authorization vulnerabilities such as:
+
+-   Broken Object Level Authorization (BOLA)
+-   Broken Authentication
+-   Broken Object Property Level Authorization (BOPLA)
+-   Broken Function Level Authorization (BFLA)
+-   Role-based access control
+
+For example, authenticate as Alice:
+
+``` http
 POST /api/auth/login
 Content-Type: application/json
 
@@ -115,21 +181,42 @@ Content-Type: application/json
 }
 ```
 
-The returned access token can then be supplied using:
+Then use the returned JWT:
 
-```http
+``` http
 Authorization: Bearer <ACCESS_TOKEN>
 ```
 
-> Never commit real authentication tokens to the repository.
+Never commit generated JWT access tokens to the repository.
 
----
+------------------------------------------------------------------------
+
+## 🔐 Authentication
+
+The API uses JWT Bearer authentication.
+
+After authenticating with one of the laboratory accounts, the API
+returns an access token.
+
+Authenticated requests must provide the token using:
+
+``` http
+Authorization: Bearer <ACCESS_TOKEN>
+```
+
+JWT signing keys are supplied through local configuration and are not
+committed to the repository.
+
+> Never commit generated authentication tokens or signing keys to the
+> repository.
+
+------------------------------------------------------------------------
 
 ## 🧪 Laboratory Design
 
 Most vulnerabilities follow the same structure:
 
-```text
+``` text
 Vulnerable implementation
           │
           ▼
@@ -147,25 +234,27 @@ Verify mitigation
 
 Endpoints are generally separated using:
 
-```text
+``` text
 /api/vulnerable/...
 ```
 
 and:
 
-```text
+``` text
 /api/secure/...
 ```
 
-This makes it possible to compare insecure and secure implementations side by side.
+This makes it possible to compare insecure and secure implementations
+side by side.
 
----
+------------------------------------------------------------------------
 
-## 🔎 Example — Broken Object Level Authorization
+## 🔎 Example --- Broken Object Level Authorization
 
-A vulnerable endpoint may retrieve an order directly from a client-controlled identifier:
+A vulnerable endpoint may retrieve an order directly from a
+client-controlled identifier:
 
-```text
+``` text
 GET /api/vulnerable/orders/2
 ```
 
@@ -173,7 +262,7 @@ without verifying ownership.
 
 Conceptually:
 
-```text
+``` text
 Alice
   │
   │ requests Order 2
@@ -186,9 +275,10 @@ Order exists?
   └── Yes → Return order ❌
 ```
 
-The secure implementation additionally verifies that the authenticated user owns the requested object:
+The secure implementation additionally verifies that the authenticated
+user owns the requested object:
 
-```text
+``` text
 Alice
   │
   │ requests Order 2
@@ -204,13 +294,14 @@ Order belongs to Alice?
 
 See the complete laboratory documentation in:
 
-[API1 — Broken Object Level Authorization](docs/vulnerabilities/API1-BOLA.md)
+[API1 --- Broken Object Level
+Authorization](docs/vulnerabilities/API1-BOLA.md)
 
----
+------------------------------------------------------------------------
 
 ## 📂 Project Structure
 
-```text
+``` text
 .
 ├── Murayama.VulnerableApi/
 │   ├── Controllers/
@@ -248,10 +339,13 @@ See the complete laboratory documentation in:
 │       ├── API9-Improper-Inventory-Management.md
 │       └── API10-Unsafe-Consumption-of-APIs.md
 │
+├── .env.example
+├── compose.yaml
+├── LICENSE
 └── README.md
 ```
 
----
+------------------------------------------------------------------------
 
 ## 🚀 Running the Laboratory
 
@@ -259,90 +353,104 @@ See the complete laboratory documentation in:
 
 Install:
 
-- .NET SDK
-- Docker
-- PostgreSQL container through Docker
-- Git
+-   .NET SDK
+-   Docker
+-   Git
 
 Verify .NET:
 
-```bash
+``` bash
 dotnet --version
 ```
 
 Verify Docker:
 
-```bash
+``` bash
 docker --version
 ```
 
----
+### Environment Configuration
 
-### Start PostgreSQL
+Create a local `.env` file based on `.env.example`.
 
-Start the PostgreSQL container used by the laboratory.
+Example:
 
-Verify that it is running:
+``` dotenv
+POSTGRES_DB=murayama_vulnerable_api
+POSTGRES_USER=your_postgres_user
+POSTGRES_PASSWORD=your_postgres_password
 
-```bash
+JWT_KEY=replace_with_a_development_jwt_signing_key
+```
+
+The `.env` file is ignored by Git and must not be committed.
+
+### Run with Docker Compose
+
+``` bash
+docker compose up --build -d
+```
+
+Verify the containers:
+
+``` bash
 docker ps
 ```
 
----
+The Docker Compose configuration binds the laboratory services to the
+local machine.
 
-### Apply Database Migrations
+The API is available at:
 
-Navigate to the directory containing:
-
-```text
-Murayama.VulnerableApi.csproj
+``` text
+http://localhost:8080
 ```
-
-and run:
-
-```bash
-dotnet ef database update
-```
-
----
-
-### Run the API
-
-From the same project directory:
-
-```bash
-dotnet run
-```
-
-The local development instance used throughout the laboratory is typically available at:
-
-```text
-http://localhost:5248
-```
-
-The exact port may differ depending on the local development configuration.
-
----
 
 ### Health Check
 
-```http
-GET http://localhost:5248/api/health
+``` http
+GET http://localhost:8080/api/health
 ```
 
 Expected response:
 
-```http
+``` http
 HTTP/1.1 200 OK
 ```
 
----
+### Local .NET Execution
+
+When running directly through the .NET development environment, apply
+the database migrations from the directory containing
+`Murayama.VulnerableApi.csproj`:
+
+``` bash
+dotnet ef database update
+```
+
+Then:
+
+``` bash
+dotnet run
+```
+
+The local development instance used throughout the laboratory is
+typically available at:
+
+``` text
+http://localhost:5248
+```
+
+The exact port may differ depending on the local development
+configuration.
+
+------------------------------------------------------------------------
 
 ## 🧪 HTTP Tests
 
 The repository contains:
 
-```text
+``` text
 Murayama.VulnerableApi.http
 ```
 
@@ -350,21 +458,21 @@ This file contains requests used to reproduce the laboratories.
 
 Examples include:
 
-```http
+``` http
 GET {{host}}/api/vulnerable/orders/2
 Authorization: Bearer {{token}}
 ```
 
 and their secure counterparts:
 
-```http
+``` http
 GET {{host}}/api/secure/orders/2
 Authorization: Bearer {{token}}
 ```
 
 The requests can be executed using IDEs with `.http` file support.
 
----
+------------------------------------------------------------------------
 
 ## 🗄️ Database
 
@@ -372,70 +480,74 @@ PostgreSQL is used to persist laboratory data.
 
 Entity Framework Core handles:
 
-- entity mapping
-- database access
-- schema migrations
-- relationships
-- database constraints
+-   entity mapping
+-   database access
+-   schema migrations
+-   relationships
+-   database constraints
 
-Some security controls are intentionally enforced at the database layer as well.
+Some security controls are intentionally enforced at the database layer
+as well.
 
-For example, the API6 laboratory uses a unique constraint to prevent multiple coupon redemptions for the same user:
+For example, the API6 laboratory uses a unique constraint to prevent
+multiple coupon redemptions for the same user:
 
-```text
+``` text
 UNIQUE(UserId, CouponCode)
 ```
 
-This demonstrates defense in depth between application validation and database integrity.
+This demonstrates defense in depth between application validation and
+database integrity.
 
----
+------------------------------------------------------------------------
 
 ## 🔒 Security Techniques Demonstrated
 
 The secure implementations demonstrate techniques including:
 
-- Object-level authorization
-- Property-level authorization
-- Role-based access control
-- JWT authentication
-- DTO-based input models
-- Server-side business-rule validation
-- Database uniqueness constraints
-- Resource limits
-- SSRF destination validation
-- Private and loopback address blocking
-- Secure error handling
-- Server-side exception logging
-- API lifecycle management
-- External API response validation
-- HTTP timeouts
-- Upstream failure handling
+-   Object-level authorization
+-   Property-level authorization
+-   Role-based access control
+-   JWT authentication
+-   DTO-based input models
+-   Server-side business-rule validation
+-   Database uniqueness constraints
+-   Resource limits
+-   SSRF destination validation
+-   Private and loopback address blocking
+-   Secure error handling
+-   Server-side exception logging
+-   API lifecycle management
+-   External API response validation
+-   HTTP timeouts
+-   Upstream failure handling
 
----
+------------------------------------------------------------------------
 
 ## 📸 Evidence
 
-Each laboratory contains screenshots demonstrating vulnerable and secure behavior.
+Each laboratory contains screenshots demonstrating vulnerable and secure
+behavior.
 
 Evidence is stored under:
 
-```text
+``` text
 docs/images/
 ```
 
 Examples include:
 
-- vulnerable HTTP responses
-- secure HTTP responses
-- authorization failures
-- PostgreSQL verification
-- server-side logs
-- simulated internal services
-- simulated third-party API responses
+-   vulnerable HTTP responses
+-   secure HTTP responses
+-   authorization failures
+-   PostgreSQL verification
+-   server-side logs
+-   simulated internal services
+-   simulated third-party API responses
 
 The detailed reports reference these images directly.
 
----
+------------------------------------------------------------------------
 
 ## ⚠️ Security Warning
 
@@ -443,33 +555,37 @@ This repository intentionally contains vulnerable code.
 
 It is designed for:
 
-- cybersecurity education
-- Application Security study
-- secure coding practice
-- API security testing
-- local laboratory exercises
+-   cybersecurity education
+-   Application Security study
+-   secure coding practice
+-   API security testing
+-   local laboratory exercises
 
 It is **not** designed for:
 
-- production deployment
-- Internet-facing hosting
-- processing real user information
-- storing real credentials
-- handling sensitive information
+-   production deployment
+-   Internet-facing hosting
+-   processing real user information
+-   storing real credentials
+-   handling sensitive information
 
 Run the application only in an isolated and controlled environment.
 
----
+------------------------------------------------------------------------
 
 ## 📚 References
 
-- [OWASP API Security Project](https://owasp.org/www-project-api-security/)
-- [OWASP API Security Top 10 — 2023](https://owasp.org/API-Security/editions/2023/en/0x11-t10/)
-- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
-- [Microsoft ASP.NET Core Documentation](https://learn.microsoft.com/aspnet/core/)
-- [Entity Framework Core Documentation](https://learn.microsoft.com/ef/core/)
+-   [OWASP API Security
+    Project](https://owasp.org/www-project-api-security/)
+-   [OWASP API Security Top 10 ---
+    2023](https://owasp.org/API-Security/editions/2023/en/0x11-t10/)
+-   [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+-   [Microsoft ASP.NET Core
+    Documentation](https://learn.microsoft.com/aspnet/core/)
+-   [Entity Framework Core
+    Documentation](https://learn.microsoft.com/ef/core/)
 
----
+------------------------------------------------------------------------
 
 ## 👤 Author
 
@@ -477,15 +593,15 @@ Run the application only in an isolated and controlled environment.
 
 Software Developer transitioning into Cybersecurity, with a focus on:
 
-- Application Security
-- API Security
-- Penetration Testing
-- Secure Software Development
+-   Application Security
+-   API Security
+-   Penetration Testing
+-   Secure Software Development
 
----
+------------------------------------------------------------------------
 
 ## 📄 License
 
-This project is intended for educational and cybersecurity training purposes.
+This project is licensed under the **MIT License**.
 
-See the repository license for usage terms.
+See [LICENSE](LICENSE) for details.
