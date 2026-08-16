@@ -6,6 +6,8 @@
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![OWASP](https://img.shields.io/badge/OWASP-API_Security_Top_10-000000?style=flat-square&logo=owasp&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+[![CI - Build and Test](https://github.com/AlexandreMurayama/Murayama.VulnerableApi/actions/workflows/ci.yml/badge.svg)](https://github.com/AlexandreMurayama/Murayama.VulnerableApi/actions/workflows/ci.yml)
+[![CodeQL Security Analysis](https://github.com/AlexandreMurayama/Murayama.VulnerableApi/actions/workflows/codeql.yml/badge.svg)](https://github.com/AlexandreMurayama/Murayama.VulnerableApi/actions/workflows/codeql.yml)
 
 An intentionally vulnerable ASP.NET Core Web API designed for hands-on
 study of the **OWASP API Security Top 10 --- 2023**.
@@ -35,6 +37,8 @@ laboratory with the following goals:
 -   Document exploitation evidence and mitigations.
 -   Practice secure development using ASP.NET Core.
 -   Build a practical API Security / AppSec portfolio project.
+-   Practice automated security testing with integration tests.
+-   Implement a practical DevSecOps pipeline with CI, SAST and dependency security controls.
 
 ------------------------------------------------------------------------
 
@@ -142,6 +146,10 @@ All simulations remain inside the local laboratory environment.
 -   **HttpClient / IHttpClientFactory**
 -   **EF Core Migrations**
 -   **HTTP request files (`.http`)**
+-   **xUnit**
+-   **ASP.NET Core WebApplicationFactory**
+-   **GitHub Actions**
+-   **GitHub CodeQL**
 
 ------------------------------------------------------------------------
 
@@ -303,6 +311,12 @@ Authorization](docs/vulnerabilities/API1-BOLA.md)
 
 ``` text
 .
+├── .github/
+│   └── workflows/
+│       ├── ci.yml
+│       ├── codeql.yml
+│       └── dependency-review.yml
+│
 ├── Murayama.VulnerableApi/
 │   ├── Controllers/
 │   ├── Data/
@@ -313,6 +327,22 @@ Authorization](docs/vulnerabilities/API1-BOLA.md)
 │   ├── Settings/
 │   ├── Murayama.VulnerableApi.csproj
 │   └── Murayama.VulnerableApi.http
+│
+├── Murayama.VulnerableApi.Tests/
+│   ├── Infrastructure/
+│   │   ├── CustomWebApplicationFactory.cs
+│   │   ├── RecordingHttpClientFactory.cs
+│   │   ├── RecordingHttpMessageHandler.cs
+│   │   └── SsrfWebApplicationFactory.cs
+│   ├── Integration/
+│   │   └── HealthCheckTests.cs
+│   ├── Security/
+│   │   ├── BolaTests.cs
+│   │   ├── BoplaTests.cs
+│   │   ├── BrokenAuthenticationTests.cs
+│   │   └── SsrfTests.cs
+│   ├── AssemblyInfo.cs
+│   └── Murayama.VulnerableApi.Tests.csproj
 │
 ├── docs/
 │   ├── images/
@@ -471,6 +501,129 @@ Authorization: Bearer {{token}}
 ```
 
 The requests can be executed using IDEs with `.http` file support.
+
+------------------------------------------------------------------------
+
+## ⚙️ DevSecOps & Automated Security Testing
+
+The project includes a DevSecOps pipeline designed to automatically validate
+the application, its dependencies and selected security behaviors.
+
+### Continuous Integration
+
+GitHub Actions automatically executes the CI pipeline on pushes and pull
+requests targeting the `main` branch.
+
+The pipeline performs:
+
+``` text
+Pull Request / Push
+        │
+        ▼
+Restore Dependencies
+        │
+        ▼
+Build (.NET 10)
+        │
+        ▼
+PostgreSQL 17 Test Environment
+        │
+        ▼
+Automated Tests
+        │
+        ├── Integration Tests
+        └── Security Tests
+```
+
+A dedicated PostgreSQL 17 service container is created by GitHub Actions for
+the automated test environment. Database migrations and seed data are applied
+to this isolated database before the tests execute.
+
+### Automated Security Tests
+
+Selected OWASP API Security scenarios are reproduced through automated
+integration tests using **xUnit** and **WebApplicationFactory**.
+
+| OWASP | Security Test | Behavior Validated |
+|---|---|---|
+| API1:2023 | BOLA | An authenticated user can access an object belonging to another user |
+| API2:2023 | Broken Authentication | Repeated failed authentication attempts are accepted without rate limiting |
+| API3:2023 | BOPLA | A regular user can modify the sensitive `Role` property |
+| API7:2023 | SSRF | A user-controlled loopback URL reaches the server-side HTTP client |
+
+> **Important:** This is an intentionally vulnerable application.
+>
+> A passing security test does **not** mean that the vulnerable endpoint is
+> secure. These tests act as executable specifications of the educational
+> laboratory: they verify that the expected vulnerable behavior can still be
+> reproduced.
+>
+> The secure counterparts remain documented separately and demonstrate the
+> corresponding mitigations.
+
+The SSRF test uses a controlled `HttpMessageHandler` to verify the destination
+requested by the application without performing a real connection to an
+internal or loopback service.
+
+### Static Application Security Testing (SAST)
+
+The repository uses **GitHub CodeQL** to perform static security analysis of
+the C# codebase.
+
+CodeQL analysis runs automatically through GitHub Actions and participates in
+the repository security workflow.
+
+``` text
+Source Code
+    │
+    ▼
+CodeQL Analysis
+    │
+    ▼
+Security Findings
+    │
+    ▼
+GitHub Code Scanning
+```
+
+### Dependency Security
+
+**Dependency Review** runs on pull requests to identify potentially vulnerable
+or risky dependency changes before they are merged.
+
+**Dependabot** is enabled to monitor project dependencies and surface available
+security and dependency updates.
+
+### Secret Protection
+
+The repository uses GitHub security controls to reduce the risk of credentials
+being committed accidentally:
+
+-   Secret Scanning
+-   Push Protection
+
+Real database passwords, JWT signing keys and generated access tokens are not
+stored in the repository.
+
+### Branch Protection and Security Gates
+
+The `main` branch is protected by required pull request checks.
+
+Changes are validated through automated CI and security analysis before being
+merged.
+
+The repository currently uses the following GitHub Actions workflows:
+
+``` text
+.github/workflows/
+├── ci.yml
+├── codeql.yml
+└── dependency-review.yml
+```
+
+Together, these controls demonstrate a basic secure software delivery
+lifecycle combining automated build validation, integration testing,
+security testing, SAST, dependency analysis and secret protection.
 
 ------------------------------------------------------------------------
 
