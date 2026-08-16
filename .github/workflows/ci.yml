@@ -16,6 +16,24 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+    
+    env:
+      TEST_DB_CONNECTION: "Host=localhost;Port=5432;Database=murayama_vulnerable_api_tests;Username=murayama;Password=test-password"
+    
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: murayama
+          POSTGRES_PASSWORD: test-password
+          POSTGRES_DB: murayama_vulnerable_api_tests
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U murayama"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout repository
