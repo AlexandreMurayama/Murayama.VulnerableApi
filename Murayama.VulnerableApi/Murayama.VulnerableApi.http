@@ -413,7 +413,7 @@ Authorization: Bearer {{token}}
 ###
 
 ############################################################
-# OWASP API6 - SERVER-SIDE REQUEST FORGERY (SSRF)
+# OWASP API7 - SERVER-SIDE REQUEST FORGERY (SSRF)
 ############################################################
 
 # ---------------------------------------------------------
