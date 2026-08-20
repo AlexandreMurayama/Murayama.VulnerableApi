@@ -696,7 +696,7 @@ vetores que foram testados, mas corretamente bloqueados.
 
 A documentação pública do pentest é mantida separadamente do README principal:
 
--   [Pentest Assessment] (Brasil)](docs/pentest/PENTEST.pt-BR.md)
+-   [Pentest Assessment](docs/pentest/PENTEST.pt-BR.md)
 
 A documentação pública é sanitizada e não contém JWTs gerados, hashes de senha,
 caminhos pessoais do sistema de arquivos ou outras evidências sensíveis
