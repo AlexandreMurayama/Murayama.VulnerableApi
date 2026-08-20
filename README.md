@@ -701,7 +701,7 @@ paths that were tested but successfully blocked.
 
 The public pentest documentation is maintained separately from the main README:
 
--   [Pentest Assessment](docs/pentest/Pentest_English.md)
+-   [Pentest Assessment](docs/pentest/PENTEST.en-US.md)
 
 The public documentation is sanitized and does not include generated JWTs,
 password hashes, personal filesystem paths or other unnecessary sensitive
