@@ -1,5 +1,7 @@
 # Murayama Vulnerable API
 
+[**English**](README.md) | [Português (Brasil)](README-PT-BR.md)
+
 ![.NET](https://img.shields.io/badge/.NET-ASP.NET_Core-512BD4?style=flat-square&logo=dotnet&logoColor=white)
 ![C%23](https://img.shields.io/badge/C%23-Language-512BD4?style=flat-square&logo=csharp&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=flat-square&logo=postgresql&logoColor=white)
@@ -624,6 +626,86 @@ The repository currently uses the following GitHub Actions workflows:
 Together, these controls demonstrate a basic secure software delivery
 lifecycle combining automated build validation, integration testing,
 security testing, SAST, dependency analysis and secret protection.
+
+------------------------------------------------------------------------
+
+
+## 🔐 Security Assessment / Pentest
+
+After the API laboratories and automated security controls were implemented, the
+application was subjected to an authorized penetration test from a Kali Linux
+environment.
+
+The assessment started with a **black-box** approach using service discovery,
+HTTP reconnaissance and endpoint enumeration. After the API specification was
+identified locally, the assessment continued as **gray-box testing** to provide
+systematic coverage of the exposed attack surface.
+
+The pentest covered:
+
+-   Service and endpoint discovery with Nmap, FFUF and curl
+-   Authentication and JWT analysis
+-   Broken Object Level Authorization (BOLA / IDOR)
+-   Broken Object Property Level Authorization (BOPLA)
+-   Broken Function Level Authorization (BFLA)
+-   Server-Side Request Forgery (SSRF)
+-   Sensitive property exposure
+-   Security misconfiguration and verbose error handling
+-   Excessive pagination and resource controls
+-   Unsafe consumption of third-party API data
+-   Authentication rate limiting and automated-abuse controls
+
+### Pentest Results
+
+The assessment confirmed **10 security findings**.
+
+| ID | Finding | Proposed CVSS v3.1 |
+|---|---|---:|
+| F-01 | Server-Side Request Forgery (SSRF) | 8.1 High |
+| F-02 | Broken Object Level Authorization (BOLA / IDOR) | 6.5 Medium |
+| F-03 | BOPLA / Mass Assignment leading to Privilege Escalation | 8.8 High |
+| F-04 | Sensitive Property Exposure | 4.3 Medium |
+| F-05 | Verbose Error Handling / Sensitive Information Disclosure | 6.5 Medium |
+| F-06 | Broken Function Level Authorization (BFLA) | 6.5 Medium |
+| F-07 | Excessive Pagination / Unrestricted Resource Consumption | 4.3 Medium |
+| F-08 | BOLA in Orders Search | 6.5 Medium |
+| F-09 | Unsafe Consumption of Third-Party API Data | 5.3 Medium |
+| F-10 | Missing Authentication Rate Limiting | 5.3 Medium |
+
+The highest-priority finding demonstrated a complete **User → Admin privilege
+escalation**. A regular user was able to modify the sensitive `Role` property,
+authenticate again, receive effective administrative privileges and access an
+administrative endpoint.
+
+The assessment also identified a BOLA condition in an endpoint intended to
+represent a secure implementation, demonstrating that authorization must be
+validated consistently across every operation that exposes the same protected
+resource.
+
+### Negative Tests and Working Controls
+
+The pentest also documented controls that worked correctly:
+
+-   JWT role tampering without a valid signature was rejected.
+-   Invalid or unsigned JWTs were rejected.
+-   A normal user was denied access to `/api/v2/users`.
+-   The secure individual-order endpoint prevented cross-user access.
+-   The secure SSRF endpoint blocked local and private destinations.
+-   The secure authentication endpoint applied rate limiting.
+-   Duplicate coupon persistence was prevented by the database uniqueness constraint.
+
+These negative tests help distinguish confirmed vulnerabilities from attack
+paths that were tested but successfully blocked.
+
+### Pentest Documentation
+
+The public pentest documentation is maintained separately from the main README:
+
+-   [Pentest Assessment](docs/pentest/Pentest_English.md)
+
+The public documentation is sanitized and does not include generated JWTs,
+password hashes, personal filesystem paths or other unnecessary sensitive
+evidence.
 
 ------------------------------------------------------------------------
 
